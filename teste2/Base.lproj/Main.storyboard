@@ -24,7 +24,7 @@
                                 <color key="backgroundColor" red="0.18271521196247059" green="0.28124763197055691" blue="0.66211949481865284" alpha="0.91802926936619711" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <size key="titleShadowOffset" width="23" height="33"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="SAVE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -82,6 +82,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="buttonOutlet" destination="FI7-7r-PhR" id="RSt-5C-9xg"/>
                         <outlet property="listOfNotes" destination="d9Q-S7-hzl" id="DaM-su-sq6"/>
                         <outlet property="showText" destination="EU7-Fz-F7R" id="5tD-Gr-G12"/>
                         <outlet property="textInput" destination="94d-Co-89X" id="Iv5-gA-gEu"/>
