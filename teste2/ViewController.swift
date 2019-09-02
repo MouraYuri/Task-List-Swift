@@ -1,56 +1,52 @@
 import UIKit
 
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate{
     
-    
-    
+//    var addNoteVC: ViewControllerII?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        do{
-            self.showText.text = "Hello, world!"
-            listOfNotes.dataSource = self
-            listOfNotes.delegate = self
-            self.buttonOutlet.layer.cornerRadius = 15
-            try DataController.shared.insertNote()
-            self.CDNotes = try DataController.shared.readNotes()
-            
-        }catch{
-            print("An error has ocurred")
-        }
         
+//        addNoteVC = storyboard?.instantiateViewController(withIdentifier: "ViewControllerII") as! ViewControllerII
         
         
     }
+    
     var CDNotes: [NoteCD] = []
     var notes: [String] = ["jairoooo", "FUNCIONA, DIZGRAÇA"]
     var notesObj: [Note] = []
-    @IBOutlet weak var textInput: UITextField! //text input component
-    
-
-    @IBOutlet weak var buttonOutlet: UIButton!
-    @IBAction func button(_ sender: UIButton) { //on click button
-        self.showText.text = self.textInput.text
-        self.notes.append(self.textInput.text!)
-        self.listOfNotes.reloadData() //refreshing the tableView
-        let newNote = Note(noteContent: self.textInput.text!, noteDate: Date()) //creating a new note object that has content and date
-        notesObj.append(newNote) //adding new note to the note array
-        do {
-            try DataController.shared.insertNote()
-        }catch {
-            print("An error has ocurred!!")
-        }
-        
-    }
-    @IBOutlet weak var showText: UILabel! 
     
     @IBOutlet weak var listOfNotes: UITableView! //tableView outlet
     
-
+    @IBAction func addButton(_ sender: Any) {
+        performSegue(withIdentifier: "mySegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destination = segue.destination as? ViewControllerII {
+            destination.delegate = self
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listOfNotes.reloadData()
+    }
+    
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource, AddNoteDelegate {
+    
+    func didMoveToController(title: String, description: String) {
+        self.notes.append(title)
+        self.listOfNotes.reloadData()
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
